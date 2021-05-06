@@ -5,11 +5,11 @@ const express = require('express');
 const session = require('express-session');
 // connect-mongo 3.2.0
 // -------------------
-// const MongoStore = require('connect-mongo')(session);
+const MongoStore = require('connect-mongo')(session);
 
 // connect-mongo 4.4.1
 // -------------------
-const MongoStore = require('connect-mongo');
+// const MongoStore = require('connect-mongo');
 
 
 const app = express();
@@ -21,21 +21,21 @@ app.use(session({
 
   // connect-mongo 3.2.0
   // -------------------
-  // store: new MongoStore({
-  //   url: 'mongodb://mongo:27017/sessiondb',
-  //   ttl: 1000*60*5,
-  //   secret: 'session store secret',
-  // }),
+  store: new MongoStore({
+    url: 'mongodb://mongo:27017/sessiondb',
+    ttl: 1000*60*5,
+    secret: 'session store secret',
+  }),
 
   // connect-mongo 4.4.1
   // -------------------
-  store: MongoStore.create({
-    mongoUrl: 'mongodb://mongo:27017/sessiondb',
-    ttl: 1000*60*5,
-    crypto: {
-      secret: 'session store secret',
-    },
-  }),
+  // store: MongoStore.create({
+  //   mongoUrl: 'mongodb://mongo:27017/sessiondb',
+  //   ttl: 1000*60*5,
+  //   crypto: {
+  //     secret: 'session store secret',
+  //   },
+  // }),
 
   resave: false,
   saveUninitialized: true,
