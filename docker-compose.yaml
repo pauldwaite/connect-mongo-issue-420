@@ -1,0 +1,22 @@
+version: '3'
+services:
+  mongo:
+    image: "mongo:4.2.2"
+    volumes:
+      - ./data/db:/data/db
+
+  connect-mongo-bug-test-app:
+    depends_on:
+      - "mongo"
+    build:
+      context: .
+    user: "node"
+    environment:
+      - NODE_ENV=production
+    volumes:
+      - ./app:/workdir
+      - /workdir/node_modules
+    ports:
+      - "8080:8080"
+      - "9229:9229"
+    command: ["npm", "start"]
